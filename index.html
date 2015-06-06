@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html style="cursor: none">
+    <head>
+        <title>Surpaint</title>
+        <meta charset='utf-8'/>
+        <link rel='stylesheet' href='style.css'/>
+        <script src='https://code.jquery.com/jquery-1.7.2.min.js'></script>
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body style="overflow-x: hidden; overflow-y: hidden">
+        <script>
+            var heightInt = 20;
+            var widthInt  = 20;
+            var borderRadius = 100;
+            var colorConst = 240;
+            var randomInt;
+            var color1, color2, color3;
+            var changeValue = -1;
+            var randBool = false;
+            var image = 0;
+            
+            function biggerSize(){
+                heightInt += 5;
+                widthInt += 5;
+            }
+            
+            function smallerSize(){
+                if(heightInt > 8){
+                    heightInt -= 5;
+                    widthInt -= 5;
+                }
+            }
+            
+            function changeShapes(){
+                if(borderRadius == 0){
+                    borderRadius = 100;
+                }else if(borderRadius == 100){
+                    borderRadius = 0;
+                }
+            }
+            
+            function changeColors(){
+                if(colorConst == 240){
+                    colorConst = 160;
+                    changeValue = -1;
+                }else if(colorConst == 160){
+                    colorConst = 0;
+                    changeValue = 1;
+                }else if(colorConst == 0){
+                    colorConst = 60;
+                    changeValue = 1;
+                }else if(colorConst == 60){
+                    colorConst = 240;
+                    changeValue = -1;
+                }
+            }
+            
+            function random(){
+                
+                if (randBool) randBool = false;
+                else randBool = true;
+                
+                if (randBool) {
+                    
+                    randomInt = Math.floor((Math.random() * 100) + 1);
+                    
+                    if (randomInt <= 10) {
+                        heightInt = randomInt + 2;
+                    }
+                    else if (randomInt > 10 && randomInt <= 20) {
+                        widthInt = randomInt - 8;
+                    }
+                    else if (randomInt > 20 && randomInt <= 50) {
+                        image = "http://ifa-coop.com/images/baby_duck.png";
+                    }
+                    else if (randomInt > 50 && randomInt <= 60) {
+                        image = "http://img3.wikia.nocookie.net/__cb20121030013740/inciclopedia/images/b/b5/Patodrilo.jpg";
+                    }
+                    else if (randomInt > 60 && randomInt <= 70) {
+                        image = "https://lh3.ggpht.com/DuZwBNABV3-G6VigBg5UbBX6nCpX2en8V1xu1SrHYxNwJ2Swf7VkZfM7ZYxTua5LNg=w300";
+                    }
+                    else if (randomInt > 70 && randomInt <= 80) {
+                        image = "http://www.galeon.com/dinnofall/zanahoria.gif";
+                    }
+                    else if (randomInt > 80) {
+                        image = "http://imagenes.es.sftcdn.net/es/scrn/94000/94114/internet-explorer-9-35.png";
+                    }
+                    
+                }
+                else {
+                    
+                    image = 0;
+                    heightInt = widthInt;
+                }
+                
+            }
+            
+            function reset(){
+                $('.point').remove();
+                $('img').remove();
+            }
+            
+            $(document).on('mousemove', function (event) {
+                
+                color1 = colorConst + changeValue * Math.round((256 / $(window).width()) * event.pageX);
+                color2 = colorConst + changeValue * Math.round((256 / $(window).height()) * event.pageY);
+                color3 = colorConst + changeValue * Math.round((256 / $(window).width()) * event.pageY);
+                
+                if (randBool && randomInt > 20) {
+                    $('body').append('<img src="' + image + '" style="left: ' + event.pageX + 'px; top: ' + event.pageY + 'px;"/>')
+                }
+                else {
+                    $('body').append('<div class="point" style="left: ' + event.pageX + 'px; top: ' + event.pageY + 'px; background-color: rgb('+ color1 + ',' + color2 +','+ color3 + '); width: ' + widthInt + 'px; height: ' + heightInt + 'px; border-radius:' + borderRadius + '%"></div>');
+                }
+                
+            });
+            
+        </script>
+        <div class='absolute'>
+            <button onclick='biggerSize();' id='biggerSize' class='button' style="display:inline">Bigger paintbrush</button>
+            <button onclick='smallerSize();' id='smallerSize' class='button' style="display:inline">Smaller paintbrush</button>
+            <button onclick='changeShapes();' id='changeShapes' class='button' style="display:inline">Change Shapes</button>
+            <button onclick='changeColors();' id='changeColors' class='button' style="display:inline">Change Colors</button>
+            <button onclick='random();' id='random' class='button' style="display:inline">Surprise</button>
+            <button onclick='reset();' id='reset' class='button' style="display:inline">Reset</button>
+        </div>
+    </body>
+</html>

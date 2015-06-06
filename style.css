@@ -1,0 +1,49 @@
+img {
+    position: absolute;
+    z-index: 1;
+}
+
+li {
+    display: inline;
+}
+
+h3 {
+    display: inline;
+    margin: 0 10px;
+      font-weight: bold;
+      font-family:arial;
+}
+
+.absolute {
+    text-align: center;
+    margin: auto;
+    position: relative;
+    z-index: 10;
+}
+
+.button{
+    background-color: white;
+    color: #2bde73;
+    font-weight: bold;
+    border-radius: 6px;
+    transition: all 0.5s ease-in-out;
+    border: 3px solid #2bde73;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    line-height: 1;
+    padding: 12px 20px;
+    text-align: center;
+    margin: 7px;
+}
+
+.button:hover{
+    background-color: #2bde73;
+    color: white;
+}
+
+.point {
+    z-index: 1;
+    position: absolute;
+    background-color: black;
+}
